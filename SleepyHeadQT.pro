@@ -7,6 +7,7 @@
 QT += core gui webkit opengl network xml
 
 CONFIG += rtti
+CONFIG += debug
 
 #static {
 #    CONFIG += static
