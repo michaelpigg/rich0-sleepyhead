@@ -983,11 +983,18 @@ bool PRS1Loader::Parse002(qint32 sequence, quint32 timestamp, unsigned char *buf
             }
             break;
         case 0x02: // Pressure
-            if (!PRESSURE) {
-                PRESSURE=session->AddEventList(CPAP_Pressure,EVL_Event,0.1);
-                if (!PRESSURE) return false;
+//            if (!PRESSURE) {
+//                PRESSURE=session->AddEventList(CPAP_Pressure,EVL_Event,0.1);
+//                if (!PRESSURE) return false;
+//            }
+//            PRESSURE->AddEvent(t,buffer[pos++]);
+//            break;
+            if (!EPAP) {
+                if (!(EPAP=session->AddEventList(CPAP_EPAP,EVL_Event,0.1))) return false;
+                if (!(IPAP=session->AddEventList(CPAP_IPAP,EVL_Event,0.1))) return false;
             }
-            PRESSURE->AddEvent(t,buffer[pos++]);
+            EPAP->AddEvent(t,data[0]=buffer[pos++]);
+            IPAP->AddEvent(t,data[1]=buffer[pos++]);
             break;
         case 0x03: // BIPAP Pressure
             if (!EPAP) {
